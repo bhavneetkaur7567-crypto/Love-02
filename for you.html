@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>for you 💗</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: #ffd6e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+}
+
+#container {
+  text-align: center;
+  max-width: 85%;
+  z-index: 2;
+}
+
+#text {
+  font-size: 28px;
+  color: #111;
+  font-weight: 700;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.heart {
+  position: absolute;
+  font-size: 38px;
+  animation: float 7s linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes float {
+  from { transform: translateY(110vh); }
+  to { transform: translateY(-10vh); }
+}
+
+#bigHeart {
+  display: none;
+  font-size: 80px;
+  animation: grow 5s forwards;
+}
+
+@keyframes grow {
+  from { transform: scale(1); }
+  to { transform: scale(9); }
+}
+
+.explode {
+  animation: explode 0.9s forwards;
+}
+
+@keyframes explode {
+  from { transform: scale(9); opacity: 1; }
+  to { transform: scale(13); opacity: 0; }
+}
+
+#final {
+  display: none;
+  font-size: 38px;
+  color: #ff2f7d;
+  font-weight: 800;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="song.mp3" preload="auto"></audio>
+
+<div id="container">
+  <div id="text">tap to begin 💗</div>
+  <div id="bigHeart">💗</div>
+  <div id="final">I LOVE YOU THE MOST MY BEAUTIFUL BOY</div>
+</div>
+
+<script>
+const textEl = document.getElementById("text");
+const music = document.getElementById("music");
+const bigHeart = document.getElementById("bigHeart");
+const finalText = document.getElementById("final");
+
+const message =
+"this is for you because you've been the best boyfriend ever.\n" +
+"happy 1 month anniversary my love.\n\n" +
+
+"here are 10 reasons i love you (even though they’ll never be enough):\n\n" +
+
+"1. your laugh is the cutest thing ever.\n" +
+"2. you are consistently kind.\n" +
+"3. you always mean everything you say.\n" +
+"4. you’re excited to be a girl dad.\n" +
+"5. i can be completely myself with you.\n" +
+"6. i’m obsessed with the way you look.\n" +
+"7. you’re genuinely the funniest.\n" +
+"8. you always make me laugh and feel happy.\n" +
+"9. you make me feel safe even from miles away.\n" +
+"10. i love you for you, raghav. always.\n\n" +
+
+"one month isn’t long, but with you it feels meaningful.\n" +
+"loving you feels natural and peaceful.\n" +
+"you turned distance into something warm.\n\n" +
+
+"i would never choose anyone over you.\n" +
+"i want a life with you. only you.\n\n" +
+"and joy hehe 💗\n\n";
+
+let index = 0;
+let started = false;
+
+function typeText() {
+  if (index < message.length) {
+    textEl.textContent += message.charAt(index);
+    index++;
+    setTimeout(typeText, 55);
+  } else {
+    setTimeout(showHeart, 1200);
+  }
+}
+
+function showHeart() {
+  textEl.textContent = "this is how much i love u";
+  bigHeart.style.display = "block";
+
+  setTimeout(() => {
+    bigHeart.classList.add("explode");
+    textEl.textContent = "";
+  }, 5200);
+
+  setTimeout(() => {
+    bigHeart.style.display = "none";
+    finalText.style.display = "block";
+  }, 6200);
+}
+
+document.body.addEventListener("click", () => {
+  if (!started) {
+    started = true;
+    textEl.textContent = "";
+    music.volume = 0.8;
+    music.play().catch(() => {});
+    typeText();
+  }
+});
+
+function floatingHearts() {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = "💗";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = 5 + Math.random() * 4 + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 8000);
+}
+setInterval(floatingHearts, 300);
+</script>
+
+</body>
+</html>
